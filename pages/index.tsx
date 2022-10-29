@@ -1,5 +1,5 @@
 // import type { NextPage } from 'next';
-import type { GetStaticProps } from 'next';
+import type { GetServerSideProps, GetStaticProps } from 'next';
 import Link from "next/link";
 import Head from 'next/head';
 import Header from '../components/Header';
@@ -70,13 +70,12 @@ const Home = ({pageInfo, experiences, skills, projects, socials} : Props) => {
 
 export default Home;
 
-export const getStaticProps : GetStaticProps<Props> = async () => {
+export const getServerSideProps : GetServerSideProps = async () => {
    const pageInfo : PageInfo = await fetchpageInfo();
    const experiences : Experience[] = await fetchExperiences();
    const skills : Skill[] = await fetchSkills();
    const projects : Project[] = await fetchProjects();
    const socials : Social[] = await fetchSocials();
-
    return {
       props : {
         pageInfo,
@@ -86,7 +85,6 @@ export const getStaticProps : GetStaticProps<Props> = async () => {
         socials
       },
 
-      revalidate : 10,
    };
 };
  
